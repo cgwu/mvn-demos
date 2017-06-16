@@ -71,6 +71,32 @@ Resolves all dependencies
 $ mvn dependency:tree
 Displays dependency trees
 
+<dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.8.2</version>
+	<scope>test</scope>
+</dependency>
 
+public class MyClassTest {
+	@Test
+	public void testMultiply() {
+		MyClass tester = new MyClass();
+		assertEquals("Result", 50, tester.multiply(10, 5));
+	}
+}
+package net.srirangan.packt.maven;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ MyClassTest.class })
+public class AllTests {
+}
+
+使用Nexus搭建Maven私服
+http://www.oschina.net/question/698806_159372
+
+【Maven】使用Maven构建多模块项目
+http://www.cnblogs.com/h--d/p/6001366.html
 
 
