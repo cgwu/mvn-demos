@@ -8,18 +8,25 @@
         <artifactId>MyLargeModularApp</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <groupId>net.srirangan.packt.maven</groupId>
     <artifactId>MyModuleWar</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+
     <name>MyModuleWar Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
     </properties>
-    
+
     <dependencies>
+        <dependency>
+            <groupId>net.srirangan.packt.maven</groupId>
+            <artifactId>Common</artifactId>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
