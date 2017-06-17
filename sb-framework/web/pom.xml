@@ -11,6 +11,11 @@
 
     <artifactId>web</artifactId>
 
+    <properties>
+        <!-- The main class to start by executing java -jar -->
+        <!--<start-class>com.mycorp.starter.HelloWorldApplication</start-class>-->
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>net.xman.tech</groupId>

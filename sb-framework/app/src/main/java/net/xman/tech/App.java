@@ -6,7 +6,7 @@ package net.xman.tech;
  */
 public class App 
 {
-    public static void main_app_test( String[] args )
+    public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
     }
