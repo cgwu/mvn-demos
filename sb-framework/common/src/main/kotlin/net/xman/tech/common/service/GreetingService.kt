@@ -18,6 +18,7 @@ data class NumberReq(
         var result: Double? = null
 ) : Serializable
 
+// 测试hessian service
 interface GreetingService {
     fun sayHi(name: String): String
 
