@@ -21,6 +21,8 @@ import java.util.*
  * 官文文档(cxf集成spring boot): http://cxf.apache.org/docs/springboot.html
  * 官方全部示例:  https://github.com/apache/cxf/tree/master/distribution/src/main/release/samples
  * JAX-RS官方示例:https://github.com/apache/cxf/tree/master/distribution/src/main/release/samples/jax_rs/spring_boot/src/main/java/sample/rs/service
+ * 列出本地所有Services: JAX-WS & JAX-RS:
+ *      http://localhost:8080/cxfsvs/services
  * JAX-RS Swagger
  *      查看本地RS注册信息: http://localhost:8080/cxfsvs/swagger.json
  *      调用本地RS: http://localhost:8080/cxfsvs/api-docs?url=/cxfsvs/swagger.json
@@ -39,7 +41,7 @@ class CxfWebServiceConfig {
         return endpoint
     }
 
-    // 注册JAX-RS Endpoint
+    // 手工注册JAX-RS Endpoint，自动扫描测试失败
     @Bean
     fun rsServer(): Server {
         val endpoint = JAXRSServerFactoryBean()
