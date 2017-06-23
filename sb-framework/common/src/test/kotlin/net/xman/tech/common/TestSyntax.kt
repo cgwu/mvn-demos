@@ -1,5 +1,7 @@
 package net.xman.tech.common
 
+import kotlin.reflect.KClass
+
 /**
  * Test Syntax.
  */
@@ -61,9 +63,34 @@ fun testGeneric() {
     println("a=$a, b=$b")
 }
 
+// Safe Cast: as?
+fun testSafeCast(){
+    val location:Any = "London"
+    val safeString:String? = location as? String
+    val safeInt:Int? = location as? Int
+    println("safeString: $safeString, safeInt: $safeInt")
+}
+
+class Sandwich<F1,F2>()
+// KClass
+fun testKClass(){
+    val name:String = "George"
+    // 关于out: Transformation: Consumer in, Producer out! :-)
+    // 参考: https://kotlinlang.org/docs/reference/generics.html
+    val kclass1: KClass<out String> = name::class
+    val kclass2: KClass<out String> = String::class
+    println(kclass1 == kclass2)
+
+    val types = Sandwich::class.typeParameters
+    types.forEach {
+        println("Type ${it.name} has upper bound ${it.upperBounds}")
+    }
+}
+
 fun main(args: Array<String>) {
     testLambda()
     testGeneric()
-//    println("test")
+    testSafeCast()
+    testKClass()
 }
 
