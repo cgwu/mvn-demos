@@ -28,13 +28,14 @@ class RedisConfig : CachingConfigurerSupport() {
 
     @Bean
     override fun keyGenerator(): KeyGenerator {
+        // FIXME: kotlin生成匿名内部类的方法
         return object : KeyGenerator {
             override fun generate(target: Any, method: Method, vararg params: Any): Any {
                 val sb = StringBuilder()
-                sb.append(target.javaClass.name)
+                sb.append(target.javaClass.name).append('$')
                 sb.append(method.getName())
                 for (obj in params) {
-                    sb.append(obj.toString())
+                    sb.append('$').append(obj.toString())
                 }
                 return sb.toString()
             }
