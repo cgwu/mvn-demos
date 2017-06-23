@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
+import java.util.UUID
+import javax.servlet.http.HttpSession
+
+
 
 
 @RestController
@@ -26,4 +30,13 @@ class HomeController {
         return "computePiDecimal: $result"
     }
 
+    @RequestMapping("/uid")
+    fun uid(session: HttpSession): String {
+        var uid: UUID? = session.getAttribute("uid") as UUID?
+        if (uid == null) {
+            uid = UUID.randomUUID()
+        }
+        session.setAttribute("uid", uid)
+        return session.id
+    }
 }
