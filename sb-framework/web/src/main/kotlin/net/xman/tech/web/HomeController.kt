@@ -18,6 +18,7 @@ class HomeController {
     @Autowired
     private val greetingService: GreetingService? = null
 
+    // 测试调用Hessian Service.
     @RequestMapping("/")
     fun index(): String {
         val u = UserEntity("张三", 33, "123456")
