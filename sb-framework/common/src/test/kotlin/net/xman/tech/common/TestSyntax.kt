@@ -64,17 +64,18 @@ fun testGeneric() {
 }
 
 // Safe Cast: as?
-fun testSafeCast(){
-    val location:Any = "London"
-    val safeString:String? = location as? String
-    val safeInt:Int? = location as? Int
+fun testSafeCast() {
+    val location: Any = "London"
+    val safeString: String? = location as? String
+    val safeInt: Int? = location as? Int
     println("safeString: $safeString, safeInt: $safeInt")
 }
 
-class Sandwich<F1,F2>()
+class Sandwich<F1, F2>()
+
 // KClass
-fun testKClass(){
-    val name:String = "George"
+fun testKClass() {
+    val name: String = "George"
     // 关于out: Transformation: Consumer in, Producer out! :-)
     // 参考: https://kotlinlang.org/docs/reference/generics.html
     val kclass1: KClass<out String> = name::class
@@ -87,10 +88,54 @@ fun testKClass(){
     }
 }
 
+/*
+Kotlin type parameter invariant by default.
+a type M<T> is neither a subtype nor a supertype of
+M<U>, regardless of the relationship between T and U.
+*/
+abstract class Fruit {
+    abstract fun isSafeToEat(): Boolean
+}
+class Apple : Fruit(){
+    override fun isSafeToEat(): Boolean {
+        return true
+    }
+}
+class Banana : Fruit(){
+    override fun isSafeToEat(): Boolean {
+        return true
+    }
+}
+class BadPeach : Fruit(){
+    override fun isSafeToEat(): Boolean {
+        return false
+    }
+}
+class Crate<out T>(val elements:List<T>) {
+//    fun add(t:T) = elements.add(t)
+    fun last():T = elements.last()
+}
+// 所有是否可吃
+fun isSafe(crate: Crate<Fruit>): Boolean = crate.elements.all { it.isSafeToEat() }
+// 测试协变
+fun testCovariance() {
+    var bananas = Crate<Banana>(listOf(Banana(),Banana()))
+    var b1 = isSafe(bananas)
+    println("All bananas safe to eat: $b1")
+    var badpeaches = Crate<BadPeach>(listOf(BadPeach(),BadPeach()))
+    var b2 = isSafe(badpeaches)
+    println("All badpeaches safe to eat: $b2")
+    var fruits = Crate<Fruit>(listOf(Apple(),BadPeach(),Banana()))
+    var b3 = isSafe(fruits)
+    println("All fruits safe to eat: $b3")
+}
+
+
 fun main(args: Array<String>) {
     testLambda()
     testGeneric()
     testSafeCast()
     testKClass()
+    testCovariance()
 }
 
