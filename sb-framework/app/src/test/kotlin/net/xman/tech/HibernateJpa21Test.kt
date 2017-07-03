@@ -15,6 +15,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.test.context.junit4.SpringRunner
 import java.util.*
 import javax.persistence.EntityManager
+import org.springframework.jdbc.core.JdbcTemplate
+
+
 
 
 @RunWith(SpringRunner::class)
@@ -28,6 +31,9 @@ class HibernateJpa21Test {
 
     @Autowired
     private val journalRepo: JournalRepo? = null
+
+    @Autowired
+    var jdbcTemplate: JdbcTemplate? = null
 
     @Test
     @Throws(Exception::class)
@@ -95,6 +101,9 @@ class HibernateJpa21Test {
 //        ef!!.transaction.begin()
 //        ef!!.persist(j)
 //        ef!!.transaction.commit()
+
+        jdbcTemplate!!.execute("INSERT INTO JOURNAL(title,summary,created)"
+                + "	VALUES('测试spring jdbc','Today I will learn Spring Boot'," + "	'2017-07-03 00:00:00.00')")
 
         log.info("测试Journal Repo结束")
     }
