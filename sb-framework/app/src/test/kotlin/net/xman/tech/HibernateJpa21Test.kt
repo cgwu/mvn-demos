@@ -11,13 +11,20 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.Example
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.test.context.junit4.SpringRunner
+import java.util.*
+import javax.persistence.EntityManager
 
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
+//@EnableJpaRepositories
 class HibernateJpa21Test {
     private val log = LoggerFactory.getLogger(HibernateJpa21Test::class.java)
+
+    @Autowired
+    private val ef:EntityManager? = null
 
     @Autowired
     private val journalRepo: JournalRepo? = null
@@ -75,7 +82,19 @@ class HibernateJpa21Test {
         list = journalRepo!!.findByCustomQuery("Simple")
         list.forEach { println(it) }
 
+        println("----------- Stored Procedure")
+        var ires = journalRepo!!.addition(11,22)
+        println("Stored Procedure Result: $ires")
 
+        /* Failure */
+//        var j = Journal();
+//        j.title = "我的书"
+//        j.created = Date()
+//        j.summary = "简介"
+//
+//        ef!!.transaction.begin()
+//        ef!!.persist(j)
+//        ef!!.transaction.commit()
 
         log.info("测试Journal Repo结束")
     }

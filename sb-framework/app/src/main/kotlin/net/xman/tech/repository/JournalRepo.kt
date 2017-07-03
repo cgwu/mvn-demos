@@ -5,17 +5,19 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.querydsl.QueryDslPredicateExecutor
+import org.springframework.data.jpa.repository.query.Procedure
+import org.springframework.data.repository.query.Param
 
 
 /*
-* TODO: Repository方法名定义参考:
+* TODO: Repository方法名定义参考如下:
 * http://docs.spring.io/spring-data/jpa/docs/1.11.4.RELEASE/reference/html/#jpa.query-methods.query-creation
 * http://docs.spring.io/spring-data/jpa/docs/1.11.4.RELEASE/reference/html/#repositories.query-methods.query-creation
 *
 * 使用存储过程：
 * http://docs.spring.io/spring-data/jpa/docs/1.11.4.RELEASE/reference/html/#jpa.stored-procedures
 *
-*
+* TODO: (未整合测试 http://www.querydsl.com/)
 * find…By, read…By, query…By, count…By, and get…By
 *
 * 
@@ -134,4 +136,25 @@ interface JournalRepo : JpaRepository<Journal, Long> /* ,QueryDslPredicateExecut
     // The @Query annotation accepts the JPQL syntax.
     @Query("select j from Journal j where j.title like %?1%")
     fun findByCustomQuery(word: String): List<Journal>
+
+
+    /*
+    //调用成功!
+    CREATE OR REPLACE FUNCTION public.addition(integer, integer)
+     RETURNS integer
+     LANGUAGE plpgsql
+    AS $function$
+    declare
+        retval int;
+        retval2 int;
+    begin
+        select $1 + $2 into retval;
+        retval2 = abs(retval) * 2;
+        return retval2;
+    end;
+    $function$;
+    * */
+    @Procedure(name="public.addition")
+    fun addition(arg1: Int?, arg2:Int?): Int?
+
 }
