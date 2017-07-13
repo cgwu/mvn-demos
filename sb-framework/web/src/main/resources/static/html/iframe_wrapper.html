@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title></title>
+    <style>
+    body
+    {
+        margin:0;
+        padding:0;
+    }
+    </style>
+    <script src="../js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script>
+        function getViewPort() {
+            var e = window,
+                a = 'inner';
+            if (!('innerWidth' in window)) {
+                a = 'client';
+                e = document.documentElement || document.body;
+            }
+            return {
+                width: e[a + 'Width'],
+                height: e[a + 'Height']
+            };
+        }
+
+        function winSizeChangeHandler() {
+            var dim = getViewPort();
+            console.log(dim);
+            $("#ifm_page_wrapper").height(dim.height - 5);
+        }
+        $(function () {
+            $(window).resize(winSizeChangeHandler);
+            winSizeChangeHandler();
+        });
+    </script>
+</head>
+<body>
+    <iframe id="ifm_page_wrapper" class="full-height-content" src="iframe_inner_page.html" scrolling="auto" frameborder="0" style="padding:0px; width:100%;"></iframe>
+    <!--<iframe id="ifm_page_wrapper" class="full-height-content" src="https://www.baidu.com" scrolling="auto" frameborder="0" style="padding:0px; width:100%;"></iframe>-->
+</body>
+</html>
