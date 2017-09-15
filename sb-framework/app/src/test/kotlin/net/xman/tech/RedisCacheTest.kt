@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 class TestRedis {
 
     @Autowired
-    private val stringRedisTemplate: StringRedisTemplate? = null
+    private val strRedisTemplate: StringRedisTemplate? = null
 
     @Autowired
     private val redisTemplate: RedisTemplate<*, *>? = null
@@ -30,8 +30,8 @@ class TestRedis {
     @Test
     @Throws(Exception::class)
     fun test() {
-        stringRedisTemplate!!.opsForValue().set("aaa", "111")
-        Assert.assertEquals("111", stringRedisTemplate.opsForValue().get("aaa"))
+        strRedisTemplate!!.opsForValue().set("aaa", "111")
+        Assert.assertEquals("111", strRedisTemplate!!.opsForValue().get("aaa"))
     }
 
     @Test
